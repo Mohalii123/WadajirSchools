@@ -1,0 +1,5 @@
+{
+  "name": "Wadajir Tuition Center SMS",
+  "description": "A professional School Management System for Wadajir Tuition Center with admin, teacher, and student portals.",
+  "requestFramePermissions": ["camera", "microphone", "geolocation"]
+}

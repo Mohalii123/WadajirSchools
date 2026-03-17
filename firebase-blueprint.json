@@ -1,0 +1,144 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile with role and photo",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "displayName": { "type": "string" },
+        "email": { "type": "string" },
+        "role": { "type": "string", "enum": ["admin", "teacher", "student"] },
+        "photoURL": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "displayName", "email", "role"]
+    },
+    "Student": {
+      "title": "Student",
+      "description": "Detailed student information",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "studentId": { "type": "string" },
+        "dob": { "type": "string" },
+        "class": { "type": "string" },
+        "parentName": { "type": "string" },
+        "parentPhone": { "type": "string" },
+        "address": { "type": "string" },
+        "feeStatus": { "type": "string", "enum": ["paid", "unpaid"] },
+        "examResultsLocked": { "type": "boolean" }
+      },
+      "required": ["userId", "studentId", "class"]
+    },
+    "Teacher": {
+      "title": "Teacher",
+      "description": "Teacher details and assignments",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "subjects": { "type": "array", "items": { "type": "string" } },
+        "classes": { "type": "array", "items": { "type": "string" } },
+        "phone": { "type": "string" },
+        "qualification": { "type": "string" }
+      },
+      "required": ["userId"]
+    },
+    "Class": {
+      "title": "Class",
+      "description": "Classroom details",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "teacherId": { "type": "string" },
+        "studentCount": { "type": "number" }
+      },
+      "required": ["name"]
+    },
+    "FeeRecord": {
+      "title": "FeeRecord",
+      "description": "Financial record for a student",
+      "type": "object",
+      "properties": {
+        "studentId": { "type": "string" },
+        "amount": { "type": "number" },
+        "month": { "type": "string" },
+        "status": { "type": "string", "enum": ["paid", "unpaid"] },
+        "date": { "type": "string", "format": "date-time" }
+      },
+      "required": ["studentId", "amount", "month", "status"]
+    },
+    "ExamResult": {
+      "title": "ExamResult",
+      "description": "Student academic performance",
+      "type": "object",
+      "properties": {
+        "studentId": { "type": "string" },
+        "subject": { "type": "string" },
+        "marks": { "type": "number" },
+        "total": { "type": "number" },
+        "term": { "type": "string" },
+        "date": { "type": "string", "format": "date-time" }
+      },
+      "required": ["studentId", "subject", "marks", "total", "term"]
+    },
+    "Attendance": {
+      "title": "Attendance",
+      "description": "Daily attendance record",
+      "type": "object",
+      "properties": {
+        "studentId": { "type": "string" },
+        "date": { "type": "string" },
+        "status": { "type": "string", "enum": ["present", "absent", "late"] }
+      },
+      "required": ["studentId", "date", "status"]
+    },
+    "Announcement": {
+      "title": "Announcement",
+      "description": "School-wide broadcast",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "content": { "type": "string" },
+        "target": { "type": "string", "enum": ["all", "teachers", "students"] },
+        "date": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "content", "target"]
+    },
+    "Subject": {
+      "title": "Subject",
+      "description": "Academic subject",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "code": { "type": "string" },
+        "description": { "type": "string" }
+      },
+      "required": ["name", "code"]
+    },
+    "GalleryImage": {
+      "title": "GalleryImage",
+      "description": "Image uploaded by admin",
+      "type": "object",
+      "properties": {
+        "url": { "type": "string" },
+        "caption": { "type": "string" },
+        "uploadedBy": { "type": "string" },
+        "date": { "type": "string", "format": "date-time" }
+      },
+      "required": ["url", "uploadedBy"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": { "schema": "User", "description": "User profiles" },
+    "/students/{studentId}": { "schema": "Student", "description": "Student records" },
+    "/teachers/{teacherId}": { "schema": "Teacher", "description": "Teacher records" },
+    "/classes/{classId}": { "schema": "Class", "description": "Class records" },
+    "/fees/{feeId}": { "schema": "FeeRecord", "description": "Fee records" },
+    "/exams/{examId}": { "schema": "ExamResult", "description": "Exam results" },
+    "/attendance/{attendanceId}": { "schema": "Attendance", "description": "Attendance records" },
+    "/announcements/{announcementId}": { "schema": "Announcement", "description": "Announcements" },
+    "/subjects/{subjectId}": { "schema": "Subject", "description": "Academic subjects" },
+    "/gallery/{imageId}": { "schema": "GalleryImage", "description": "Gallery images" }
+  }
+}
